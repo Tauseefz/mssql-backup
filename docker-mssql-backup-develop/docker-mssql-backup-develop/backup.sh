@@ -86,16 +86,8 @@ do
     find $WORKDIR -type f -name "*.$CURRENT_DB.trn"     -exec cp {} $TARGETDIR \;
   fi
 
-  # Push to remote directory
-  if [ "$PUSH_REMOTE_MODE" = "move" ] || [ "$PUSH_REMOTE_MODE" = "copy" ]; then
-    echo "Push backup to remote directory"
-    find $WORKDIR -type f -name "*.$CURRENT_DB.*" -exec cp {} $REMOTEDIR \;
-
-    if [ "$PUSH_REMOTE_MODE" = "move" ]; then
-      echo "Cleanup target directory"
-      find $TARGETDIR -type f -name "*.$CURRENT_DB.*" -exec rm {} \;
-    fi
-  fi
+   azcopy login -U $AZ_USERNAME -P $AZ_PASSWORD
+   azcopy cp "$TARGETDIR/$ARCHIVE_FILENAME" "https://[account].blob.core.windows.net/[container]/[path/to/blob]"
 
   # Cleanup intermediate directory
   echo "Cleanup intermediate directory"
