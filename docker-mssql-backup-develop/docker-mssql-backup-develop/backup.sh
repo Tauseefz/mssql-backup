@@ -87,7 +87,7 @@ do
   fi
 
    azcopy login -U $AZ_USERNAME -P $AZ_PASSWORD
-   azcopy cp "$TARGETDIR/$ARCHIVE_FILENAME" "https://[account].blob.core.windows.net/[container]/[path/to/blob]"
+   azcopy cp "$TARGETDIR/$ARCHIVE_FILENAME" "https://$AZ_STORAGEACCOUNT.blob.core.windows.net/$AZ_FILESHARE/"
 
   # Cleanup intermediate directory
   echo "Cleanup intermediate directory"
